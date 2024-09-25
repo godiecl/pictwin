@@ -1,7 +1,7 @@
 # PicTwin Project
 
 ![institution: Universidad Católica del Norte](https://img.shields.io/badge/institution-Universidad%20Cat%C3%B3lica%20del%20Norte-blue?logo=google-scholar)
-![date: 202410+](https://img.shields.io/badge/date-202410-red?logo=rescuetime)
+![date: 202420+](https://img.shields.io/badge/date-202420-red?logo=rescuetime)
 
 ## Description
 
