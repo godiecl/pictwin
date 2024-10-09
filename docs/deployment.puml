@@ -1,0 +1,80 @@
+@startuml
+skin rose
+hide empty method
+' left to right direction
+set separator none
+allow_mixing
+hide empty members
+
+<style>
+package {
+  ' BackGroundColor #ccbb33
+  ' LineThickness 1
+  ' LineColor black
+}
+</style>
+
+package pictwin <<main project>> {
+
+    package warehouse <<backend>> {
+
+        file build.gradle
+
+        package src <<source code>> {
+
+            package main <<main code>> {
+
+                package java {
+
+                    package cl.ucn.disc.dsm.pictwin {
+
+                        package model {
+                            class BaseModel {
+                            }
+                            class Persona {
+                            }
+                            Persona -|> BaseModel
+                        }
+
+                        package services {
+                            class Controller {
+                            }
+                            Controller .> Persona: <<uses>>
+                        }
+
+                        class Main {
+                        }
+                        Main .> Controller: <<uses>>
+
+
+                    }
+
+                }
+
+                package resources {
+
+                    file application.yml
+
+                }
+            }
+
+
+        }
+
+    }
+
+    package app <<android app>> {
+    }
+
+    package docs <<documentation>> {
+
+        file domain.puml
+        file class.puml
+        file deployment.puml
+
+
+    }
+
+}
+
+@enduml
