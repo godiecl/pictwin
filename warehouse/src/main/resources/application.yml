@@ -1,0 +1,19 @@
+ebean:
+  dumpMetricsOnShutdown: true
+  dumpMetricsOptions: loc, sql, hash
+  ddl:
+    generate: true
+    run: true
+  debug:
+    sql: true
+    lazyload: true
+  logging: all
+
+database:
+  db:
+    username: pictwin
+    password: pictwin123123
+    platform: sqlite
+    ddlMode: dropCreate
+    dbName: pictwin
+    url: jdbc:sqlite:database.db
