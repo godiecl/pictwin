@@ -1,0 +1,57 @@
+@startuml
+skin rose
+hide empty method
+' left to right direction
+set separator none
+allow_mixing
+hide empty members
+
+package io.ebean <<external>> {
+    class Database {
+    }
+}
+
+package cl.ucn.disc.dsm.pictwin {
+
+    package model {
+
+        class BaseModel <<abstract>> {
+            - id: Long
+            - ulid: String
+            - version: Long
+            - createdAt: Instant
+            - modifiedAt: Instant
+            - deleted: Boolean
+        }
+
+        class Persona {
+            - email: String
+            - password: String
+            - strikes: Integer
+            - blocked: Boolean
+            - blockedAt: Instant
+        }
+        Persona -|> BaseModel
+    }
+
+    package services {
+
+        class Controller {
+            + Controller(database: Database)
+            + register(email: String, password: String): Persona
+            + login(email: String, password: String): Persona
+            + addPic(ulid: String, latitude: Double, longitude: Double, picture: File): PicTwin
+            + getPicTwins(ulid: String): List<PicTwin>
+        }
+        Controller --> "1" Database:  - database
+        Controller .> Persona: <<uses>>
+    }
+
+    class Main {
+        + {static} main(args: String[]): void
+    }
+    Main .> Controller: <<uses>>
+
+}
+
+@enduml
