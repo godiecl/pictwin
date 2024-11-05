@@ -1,7 +1,7 @@
 @startuml
 skin rose
 hide empty method
-' left to right direction
+left to right direction
 set separator none
 allow_mixing
 hide empty members
@@ -16,22 +16,47 @@ package cl.ucn.disc.dsm.pictwin {
     package model {
 
         class BaseModel <<abstract>> {
-            - id: Long
-            - ulid: String
-            - version: Long
-            - createdAt: Instant
-            - modifiedAt: Instant
-            - deleted: Boolean
+            # id: Long
+            # ulid: String
+            # version: Long
+            # createdAt: Instant
+            # modifiedAt: Instant
+            # deleted: Boolean
         }
 
-        class Persona {
+        class Persona <<entity>> {
             - email: String
             - password: String
             - strikes: Integer
             - blocked: Boolean
             - blockedAt: Instant
         }
-        Persona -|> BaseModel
+        Persona --|> BaseModel
+
+        class Pic <<entity>>{
+            - latitude: Double
+            - longitude: Double
+            - reports: Integer
+            - date: Instant
+            - photo: byte[]
+            - bloqued: Boolean
+            - views: Integer
+        }
+        Pic --|> BaseModel
+        Pic --> "1" Persona: - persona
+        Pic "* " <-- Persona: - pics: List<Pic>
+
+        class PicTwin <<entity>> {
+            - expiration: Instant
+            - expired: Boolean
+            - reported: Boolean
+        }
+        PicTwin --|> BaseModel
+        PicTwin --> "1" Persona: - persona
+        PicTwin --> "1" Pic: - pic
+        PicTwin --> "1" Pic: - twin
+        PicTwin "*" <-- Persona: - picTwins: List<PicTwin>
+
     }
 
     package services {
@@ -44,7 +69,9 @@ package cl.ucn.disc.dsm.pictwin {
             + getPicTwins(ulid: String): List<PicTwin>
         }
         Controller --> "1" Database:  - database
-        Controller .> Persona: <<uses>>
+        Controller ..> Persona: <<uses>>
+        Controller ..> Pic: <<uses>>
+        Controller ..> PicTwin: <<uses>>
     }
 
     class Main {
