@@ -20,7 +20,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/** Base Model. */
+import java.time.Instant;
+
+/** Base Model Class. */
 @ToString
 @MappedSuperclass
 public abstract class BaseModel {
@@ -28,7 +30,7 @@ public abstract class BaseModel {
     /** The Id. */
     @Getter @Setter @Id private Long id;
 
-    /** The ULID. */
+    /** The public Id. */
     @Getter
     @Index(unique = true)
     @Column(length = 26)
@@ -37,12 +39,12 @@ public abstract class BaseModel {
     /** The Version. */
     @Getter @Setter @Version private Long version;
 
-    /** The CreatedAt. */
-    @Getter @Setter @WhenCreated private Long createdAt;
+    /** The creation date. */
+    @Getter @Setter @WhenCreated private Instant createdAt;
 
-    /** The ModifiedAt. */
-    @Getter @Setter @WhenModified private Long modifiedAt;
+    /** The modified date. */
+    @Getter @Setter @WhenModified private Instant modifiedAt;
 
-    /** The Deleted. */
-    @SoftDelete private Boolean deleted;
+    /** Softdeleted. */
+    @SoftDelete private final Boolean deleted = Boolean.FALSE;
 }
