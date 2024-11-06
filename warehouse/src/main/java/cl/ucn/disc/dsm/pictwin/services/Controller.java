@@ -27,12 +27,35 @@ import java.util.List;
 @Slf4j
 public class Controller {
 
-    /** The database. */
+    /** The Database. */
     private final Database database;
 
     /** The Constructor. */
     public Controller(@NonNull final Database database) {
         this.database = database;
+    }
+
+    /** The seed of the database. */
+    public Boolean seed() {
+
+        // find the Persona size
+        int personaSize = new QPersona().findCount();
+        log.debug("Personas in database: {}", personaSize);
+
+        // if the Persona exists -> don't seed!
+        if (personaSize != 0) {
+            return Boolean.FALSE;
+        }
+
+        log.debug("Can't find data, seeding the database ..");
+
+        // seed the Persona
+        Persona persona = this.register("durrutia@ucn.cl", "durrutia123");
+        log.debug("Persona registered: {}", persona);
+
+        log.debug("Database seeded.");
+
+        return Boolean.TRUE;
     }
 
     /** Register a new user. */
@@ -41,15 +64,14 @@ public class Controller {
 
         // hash the password
         String hashedPassword = Password.hash(password).withBcrypt().getResult();
-        log.debug("Hashed password: {}", hashedPassword);
+        // log.debug("Hashed password: {}", hashedPassword);
 
         // build the Persona
-        Persona persona =
-                Persona.builder()
+        Persona persona = Persona.builder()
                         .email(email)
                         .password(hashedPassword)
                         .strikes(0)
-                        .blocked(false)
+                        .blocked(Boolean.FALSE)
                         .build();
 
         // save the Persona
@@ -92,8 +114,7 @@ public class Controller {
         log.debug("Persona found: {}", persona);
 
         // save the Pic
-        Pic pic =
-                Pic.builder()
+        Pic pic = Pic.builder()
                         .latitude(latitude)
                         .longitude(longitude)
                         .reports(0)
@@ -107,8 +128,7 @@ public class Controller {
         this.database.save(pic);
 
         // save the PicTwin
-        PicTwin picTwin =
-                PicTwin.builder()
+        PicTwin picTwin = PicTwin.builder()
                         .expiration(Instant.now().plusSeconds(7 * 24 * 60 * 60))
                         .expired(false)
                         .reported(false)
@@ -126,6 +146,4 @@ public class Controller {
     public List<PicTwin> getPicTwins(@NonNull String ulidPersona) {
         return new QPicTwin().persona.ulid.equalTo(ulidPersona).findList();
     }
-
-
 }

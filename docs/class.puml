@@ -63,6 +63,7 @@ package cl.ucn.disc.dsm.pictwin {
 
         class Controller {
             + Controller(database: Database)
+            + seed(): Boolean
             + register(email: String, password: String): Persona
             + login(email: String, password: String): Persona
             + addPic(ulid: String, latitude: Double, longitude: Double, picture: File): PicTwin

@@ -26,7 +26,13 @@ public class TheMain {
 
         log.debug("Starting TheMain ..");
 
+        // the controller
         Controller c = new Controller(DB.getDefault());
+
+        // seed the database
+        if (c.seed()) {
+            log.debug("Seeded the database.");
+        }
 
         log.debug("Registering Persona ..");
         Persona p = c.register("durrutia@ucn.cl", "durrutia123");
