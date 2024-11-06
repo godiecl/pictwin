@@ -9,6 +9,7 @@ import cl.ucn.disc.dsm.pictwin.model.Pic;
 import cl.ucn.disc.dsm.pictwin.model.PicTwin;
 import cl.ucn.disc.dsm.pictwin.model.query.QPersona;
 import cl.ucn.disc.dsm.pictwin.model.query.QPicTwin;
+import cl.ucn.disc.dsm.pictwin.utils.FileUtils;
 
 import com.password4j.Password;
 
@@ -19,8 +20,6 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.time.Instant;
 import java.util.List;
 
@@ -86,7 +85,7 @@ public class Controller {
             @NonNull File picture) {
 
         // read the file
-        byte[] data = readAllBytes(picture);
+        byte[] data = FileUtils.readAllBytes(picture);
 
         // find the Persona
         Persona persona = new QPersona().ulid.equalTo(ulidPersona).findOne();
@@ -128,12 +127,5 @@ public class Controller {
         return new QPicTwin().persona.ulid.equalTo(ulidPersona).findList();
     }
 
-    /** Read all the bytes from a file. */
-    private static byte[] readAllBytes(File file) {
-        try {
-            return Files.readAllBytes(file.toPath());
-        } catch (IOException e) {
-            throw new RuntimeException("Can't read the file", e);
-        }
-    }
+
 }
