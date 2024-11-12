@@ -57,6 +57,3 @@ public class Persona extends BaseModel {
     @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL)
     private List<PicTwin> picTwins;
 }
-
-
-
