@@ -11,7 +11,7 @@ import lombok.NonNull;
 
 /** The Route. */
 @Getter
-public class Route {
+public abstract class Route {
 
     /** The Method. */
     protected Method method;
