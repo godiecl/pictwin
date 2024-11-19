@@ -4,6 +4,7 @@
 
 package cl.ucn.disc.dsm.pictwin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.f4b6a3.ulid.UlidCreator;
 
 import io.ebean.annotation.Index;
@@ -28,7 +29,7 @@ import java.time.Instant;
 public abstract class BaseModel {
 
     /** The Id. */
-    @Getter @Setter @Id private Long id;
+    @Getter @Setter @Id @JsonIgnore private Long id;
 
     /** The public Id. */
     @Getter
@@ -37,14 +38,14 @@ public abstract class BaseModel {
     private final String ulid = UlidCreator.getUlid().toLowerCase();
 
     /** The Version. */
-    @Getter @Setter @Version private Long version;
+    @Getter @Setter @Version @JsonIgnore private Long version;
 
     /** The creation date. */
-    @Getter @Setter @WhenCreated private Instant createdAt;
+    @Getter @Setter @WhenCreated @JsonIgnore private Instant createdAt;
 
     /** The modified date. */
-    @Getter @Setter @WhenModified private Instant modifiedAt;
+    @Getter @Setter @WhenModified @JsonIgnore private Instant modifiedAt;
 
     /** Softdeleted. */
-    @SoftDelete private final Boolean deleted = Boolean.FALSE;
+    @SoftDelete @JsonIgnore private final Boolean deleted = Boolean.FALSE;
 }
