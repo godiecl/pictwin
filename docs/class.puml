@@ -11,6 +11,11 @@ package io.ebean <<external>> {
     }
 }
 
+package io.javalin <<external>> {
+    class Javalin {
+    }
+}
+
 package cl.ucn.disc.dsm.pictwin {
 
     package model {
@@ -75,10 +80,35 @@ package cl.ucn.disc.dsm.pictwin {
         Controller ..> PicTwin: <<uses>>
     }
 
-    class Main {
+    class TheMain <<entrypoint>> {
         + {static} main(args: String[]): void
     }
-    Main .> Controller: <<uses>>
+    TheMain .> Controller: <<uses>>
+
+    enum Method {
+        GET
+        POST
+        PUT
+    }
+
+    abstract class Route {
+        # path: String
+        # handler: Handler
+        + Route(method: Method, path: String, handler: Handler)
+        + getMethod(): Method
+        + getPath(): String
+        + getHandler(): Handler
+    }
+    Route -> Method: - method
+
+    class TheServer <<entrypoint>>{
+        - createJavalin(): Javalin
+        - addRoute(route: Route, javalin: Javalin): void
+        + {static} main(args: String[]): void
+    }
+    TheServer .> Controller: <<uses>>
+    TheServer .> Route: <<uses>>
+    TheServer .> Javalin: <<uses>>
 
 }
 
