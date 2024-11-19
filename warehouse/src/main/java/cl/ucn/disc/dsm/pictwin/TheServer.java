@@ -7,6 +7,7 @@ package cl.ucn.disc.dsm.pictwin;
 import cl.ucn.disc.dsm.pictwin.services.Controller;
 import cl.ucn.disc.dsm.pictwin.web.Route;
 import cl.ucn.disc.dsm.pictwin.web.routes.Home;
+import cl.ucn.disc.dsm.pictwin.web.routes.PersonaLogin;
 import cl.ucn.disc.dsm.pictwin.web.routes.PersonaPicTwins;
 
 import io.ebean.DB;
@@ -82,11 +83,20 @@ public class TheServer {
 
         // add the routes
         log.debug("Adding routes ..");
+
+        // GET -> /
         addRoute(new Home(), javalin);
+
+        // GET -> /api/personas/{ulid}/pictwins
         addRoute(new PersonaPicTwins(controller), javalin);
 
-        // TODO: implements the class PersonaLogin
-        // addRoute(new PersonaLogin(controller), javalin);
+        // TODO: implements the routes
+
+        // POST -> /api/personas
+        addRoute(new PersonaLogin(controller), javalin);
+
+        // POST -> /api/personas/{ulid}/pic
+        // addRoute(new PersonaPic(controller), javalin);
 
         // shutdown latch
         CountDownLatch latch = new CountDownLatch(1);
