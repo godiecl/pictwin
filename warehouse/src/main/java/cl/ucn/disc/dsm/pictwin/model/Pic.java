@@ -41,7 +41,7 @@ public class Pic extends BaseModel {
     @NotNull @Lob private byte[] photo;
 
     /** The bloqued */
-    @Builder.Default @NotNull private Boolean bloqued = Boolean.FALSE;
+    @Builder.Default @NotNull private Boolean blocked = Boolean.FALSE;
 
     /** The number of views. */
     @Builder.Default @NotNull private Integer views = 0;

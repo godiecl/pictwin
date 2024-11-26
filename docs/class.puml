@@ -44,7 +44,7 @@ package cl.ucn.disc.dsm.pictwin {
             - reports: Integer
             - date: Instant
             - photo: byte[]
-            - bloqued: Boolean
+            - blocked: Boolean
             - views: Integer
         }
         Pic --|> BaseModel

@@ -120,7 +120,7 @@ public class Controller {
                         .reports(0)
                         .date(Instant.now())
                         .photo(data)
-                        .bloqued(false)
+                        .blocked(false)
                         .views(0)
                         .persona(persona)
                         .build();
