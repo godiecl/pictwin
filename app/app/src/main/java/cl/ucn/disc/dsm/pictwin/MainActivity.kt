@@ -7,7 +7,6 @@ package cl.ucn.disc.dsm.pictwin
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -17,14 +16,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import cl.ucn.disc.dsm.pictwin.ui.theme.PicTwinTheme
 
+/**
+ * The Main Activity.
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        // onCreate: build the UI (needs to be fast!)
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
+        // enableEdgeToEdge()
+
         setContent {
             PicTwinTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
+                    CounterButton(
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
@@ -35,17 +41,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun CounterButton(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
         modifier = modifier
     )
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GreetingPreview() {
     PicTwinTheme {
-        Greeting("Android")
+        CounterButton("Android")
     }
 }
+
+
