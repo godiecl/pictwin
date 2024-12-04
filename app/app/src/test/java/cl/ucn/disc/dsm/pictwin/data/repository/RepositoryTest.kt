@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2024. Departamento de Ingenieria de Sistemas y Computacion.
+ */
+
 package cl.ucn.disc.dsm.pictwin.data.repository
 
 import cl.ucn.disc.dsm.pictwin.data.network.NetworkModule
